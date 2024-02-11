@@ -1,0 +1,23 @@
+//Перебросить картинку из цепочки в цепочку
+function action_chain_upd( &$args )
+{
+	if (!user_access_check($args))
+		return false;
+
+	$evt_id  	 = intval( request_get( $args, 'evt_id'  ));
+	$scn_id  	 = intval( request_get( $args, 'scn_id'  ));
+	$row_idx 	 = intval( request_get( $args, 'row_idx' ));
+	$chn_idx 	 = intval( request_get( $args, 'chn_idx' ));
+	$new_chn_idx = intval( request_get( $args, 'new_chn_idx' ));
+	$exp_id      = intval( request_get( $args, 'exp_id'     ));
+
+	/*$ret = db_query_rpd("UPDATE cik_chains SET chn_idx = {$new_chn_idx} 
+		WHERE evt_id = {$evt_id} AND scn_id = {$scn_id} AND row_idx = {$row_idx} AND chn_idx = {$chn_idx} AND exp_id = {$exp_id};
+		UPDATE cik_final_form SET chn_idx = {$new_chn_idx} 
+		WHERE evt_id = {$evt_id} AND scn_id = {$scn_id} AND scn_row_idx = {$row_idx} AND chn_idx = {$chn_idx} AND exp_id = {$exp_id}", true );*/
+
+	$ret = db_query_rpd("UPDATE cik_final_form SET chn_idx = {$new_chn_idx} 
+		WHERE evt_id = {$evt_id} AND scn_id = {$scn_id} AND scn_row_idx = {$row_idx} AND chn_idx = {$chn_idx} AND exp_id = {$exp_id}", true );
+
+	return $ret > 0;
+}
